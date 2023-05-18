@@ -1,20 +1,47 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import "react-native-gesture-handler";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
 
-export default function App() {
+import SearchScreen from "./src/screens/SearchScreen";
+import ResultsShowScreen from "./src/screens/ResultsShowScreen";
+import ResultsList from "./src/components/ResultsList";
+
+const Stack = createStackNavigator();
+
+const MyStack = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="Search"
+        screenOptions={{ title: "Default Title" }}
+      >
+        <Stack.Screen
+          name="Search"
+          component={SearchScreen}
+          options={{
+            title: "Business Search",
+            cardStyle: { backgroundColor: "#FFFFFF" },
+          }} // override defautl title
+        />
+        <Stack.Screen
+          name="Results"
+          component={ResultsList}
+          options={{
+            title: "Results",
+            cardStyle: { backgroundColor: "#FFFFFF" },
+          }} // override default title
+        />
+        <Stack.Screen
+          name="Details"
+          component={ResultsShowScreen}
+          options={{
+            title: "Details",
+            cardStyle: { backgroundColor: "#FFFFFF" },
+          }} // override default title
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default MyStack;
